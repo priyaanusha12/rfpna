@@ -1,0 +1,51 @@
+<div class="loginScreen py-5 p-md-5 ">
+    <div class="row">
+        <div class="col-12 col-md-6 mb-4">
+            <h1>RFP Response Generator for NA</h1>
+            <h2>
+                <span>Powered by</span>
+                <img src="assets/images/Capgemini_Logo_White_Mono_RGB 2.png">
+            </h2>
+            <div>
+                <img class="w-100" src="assets/images/login2.png">
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="login">
+                <h1 class="mb-4">Log In</h1>
+                <form [formGroup]="login" (ngSubmit)="logindata()">
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input [(ngModel)]="userName" formControlName="username"
+                            (keypress)="keyPressAlphaNoOnly($event)" class="form-control"
+                            placeholder="Enter your user name">
+                        <div *ngIf="login.get('username').errors && login.get('username').touched"
+                            class="text-danger mb-3">
+                            <div *ngIf="login.get('username').hasError('required')">Please enter username</div>
+                            <div *ngIf="login.get('username').hasError('minlength')">Username must be atleast 6
+                                character long</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" [(ngModel)]="userPass" class="form-control" formControlName="password"
+                            placeholder="Enter your password">
+                        <div *ngIf="login.get('password').errors && login.get('password').touched"
+                            class="text-danger mb-3">
+                            <div *ngIf="login.get('password').hasError('required')">Please enter password</div>
+                            <div *ngIf="login.get('password').hasError('minlength')">Password must be atleast 8
+                                character long</div>
+                        </div>
+                        <div class="text-right">
+                            <a href="#" class="forgot">Forgot Password?</a>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" [disabled]="login.invalid" class="form-control custom-btn-success">Log
+                            In</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+.kpi {
+    height: 100vh;
+    padding: 20px 40px;
+
+    header {
+        color: #fff;
+
+        .header {
+
+            .nav-bar {
+                background: rgba(55, 55, 55, 1);
+                padding: 8px 20px;
+                border-radius: 10px;
+                margin-bottom: 5px;
+
+                .btn-white-border {
+                    border: 1px solid #fff;
+                    background: transparent;
+                    color: #fff;
+                    border-radius: 5px;
+                    height: 35px;
+                }
+
+                h2 {
+                    margin: 0 !important;
+                }
+            }
+        }
+    }
+
+    section {
+
+        .table-container {
+            border: 1px solid #AAAAAA;
+
+            .table-body-scroll {
+                flex: 1;
+                overflow-y: auto;
+                max-height: 300px;
+
+                td {
+                    max-height: 100px;
+                    width: 10%;
+                    padding-left: 20px;
+
+                    div {
+                        max-height: 80px;
+                        overflow: hidden;
+                        display: inline-block;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        white-space: normal;
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .table {
+                margin-bottom: 0;
+                width: 100%;
+                border-collapse: collapse;
+                table-layout: fixed;
+
+                th,
+                td {
+
+                    &:nth-child(1) {
+                        width: 30% !important;
+                    }
+
+                    &:nth-child(2) {
+                        width: 30% !important;
+                    }
+                }
+
+                th {
+                    background-color: #f2f2f2;
+                }
+
+            }
+
+            mat-paginator {
+                border-top: 1px solid #AAAAAA;
+            }
+        }
+
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #e3e3e3;
+    border-radius: 10px;
+}
+
+::ng-deep .cdk-overlay-pane {
+    background: #fff !important;
+
+    .mat-mdc-select-panel {
+        background: #fff !important;
+    }
+}

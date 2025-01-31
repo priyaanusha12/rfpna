@@ -1,0 +1,40 @@
+.loginScreen {
+    color: #fff;
+    background: linear-gradient(252.86deg, #79CBD9 0%, #2F335F 99.41%) !important;
+   
+
+    h2, h5 {
+        margin: 0 !important;
+    }
+    
+    .login {
+        background: rgba(55, 55, 55, 0.5);
+        border-radius: 10px;
+        padding: 30px;
+       
+
+        .forgot {
+            color: rgba(121, 203, 217, 1);
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .custom-btn-success {
+            background: rgba(62, 186, 112, 1);
+            border: none;
+            color: #fff;
+        
+            &:hover {
+                background: rgba(62, 186, 112, 1);
+            }
+        
+            &:disabled {
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+    }
+    
+}

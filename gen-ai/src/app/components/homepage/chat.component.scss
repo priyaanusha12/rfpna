@@ -1,0 +1,190 @@
+.chat {
+    color: #fff;
+    background: linear-gradient(252.86deg, #79CBD9 0%, #2F335F 99.41%) !important;
+    height: 100vh;
+    
+    header {
+        height: 130px;
+
+        .header {
+            position: fixed;
+            padding: 20px 40px 0 40px;
+            right: 0;
+            left: 0;
+
+            .nav-bar,
+            .top-header {
+                background: rgba(55, 55, 55, 1);
+                padding: 8px 20px;
+                border-radius: 10px;
+                margin-bottom: 5px;
+            }
+
+            .btn-white-border {
+                border: 1px solid #fff;
+                background: transparent;
+                color: #fff;
+                border-radius: 5px;
+                height: 35px;
+            }
+
+            h2 {
+                margin: 0 !important;
+            }
+
+            .w65 {
+                width: 65px;
+            }
+
+            label {
+                font-size: 12px;
+            }
+
+            select {
+                border-radius: 10px;
+                height: 40px;
+            }
+
+            input {
+                width: 53px;
+                margin-left: 10px;
+                border-radius: 5px;
+                border: none;
+                padding: 8px 5px;
+            }
+
+            select {
+                width: 62%;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    section {
+
+        .chat-container {
+            overflow-y: auto;
+            max-height: 350px;
+            padding: 20px 40px;
+            scroll-behavior: smooth;
+
+            .message {
+                padding: 10px;
+                margin: 50px 0;
+                background: rgba(249, 249, 249, 1);
+                color: rgba(51, 51, 51, 1);
+                word-wrap: break-word;
+            }
+
+            .send {
+                display: flex;
+                justify-content: flex-end;
+
+                .message {
+                    border-radius: 8px 0px 8px 8px;
+                }
+            }
+
+            .receive {
+                display: flex;
+                justify-content: flex-start;
+
+                .message {
+                    border-radius: 0px 8px 8px 8px;
+                }
+            }
+        }
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        padding: 0 40px;
+        right: 0;
+        margin-bottom: 20px;
+        z-index: 1030;
+       
+        .input-container {
+            display: inline-flex;
+            box-shadow: 0px 4px 38px 0px rgba(40, 39, 39, 0.26);
+            background: rgba(55, 55, 55, 0.5);
+            border-radius: 10px;
+            padding: 10px;
+
+            input {
+                width: 100%;
+                border-radius: 5px;
+                padding: 15px;
+                border: none;
+                margin-right: 10px;
+
+                &:focus {
+                    border: none;
+                    outline: none;
+                }
+            }
+        }
+
+        button {
+            img {
+                width: 28px;
+                height: 40px;
+            }
+        }
+    }
+}
+
+//Loader
+.loading-dots {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .dot {
+        width: 20px;
+        height: 20px;
+        background-color: #fff;
+        border-radius: 50%;
+        margin: 0 5px;
+        animation: bounce 0.5s infinite alternate;
+    }
+
+    .dot:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .dot:nth-child(3) {
+        animation-delay: 0.2s;
+    }
+
+    @keyframes bounce {
+        0% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(-20px);
+        }
+    }
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #e3e3e3; 
+    border-radius: 10px;
+  }
+  
+
+  .btn-white-border {
+    border: 1px solid #fff;
+    background: transparent;
+    color: #fff;
+    border-radius: 5px;
+    height: 35px;
+}

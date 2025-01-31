@@ -1,0 +1,87 @@
+<div class="kpi">
+    <header>
+        <div class="header">
+            <div class="d-flex justify-content-between nav-bar">
+                <h2>GenAi For Software Engineering</h2>
+                <div>
+                    <button class="btn-white-border mr-3" routerLink="/chatscreen">+ Chat Window</button>
+                    <button class="btn-white-border" (click)="logout()">
+                        <img src="assets/images/logout.png">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        <h2 class="my-4">KPI Dashboard</h2>
+        <div class="table-container">
+            <div class="table-header-fixed">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Prompt</th>
+                            <th>Response</th>
+                            <th>Relevance</th>
+                            <th>Sensitivity</th>
+                            <th>Faithfulness</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="table-body-scroll">
+                <table class="table">
+                    <tbody *ngIf="tableData.length == 0">
+                        <tr>
+                            <td colspan="6" class="text-center">Loading...</td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="tableData.length > 0">
+                        <tr *ngFor="let item of tableData.slice((currentPage - 1) * pageSize, currentPage * pageSize)">
+                            <td>
+                                <div>{{ item.query }}</div>
+                            </td>
+                            <td>
+                                <div>{{ item.response }}</div>
+                            </td>
+                            <td>
+                                <div>{{ item.Relevence }}</div>
+                            </td>
+                            <td>
+                                <div>{{ item.Sensitivity }}</div>
+                            </td>
+                            <td>
+                                <div>{{ item.Faithfulness }}</div>
+                            </td>
+                            <td><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal"
+                                    (click)="openModal(item)">View</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <mat-paginator *ngIf="tableData.length > 0" [length]="totalItems" [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChange($event)">
+            </mat-paginator>
+        </div>
+    </section>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="exampleModalLabel">View</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Prompt: {{prompt}}</p>
+                <p>Response: {{response}}</p>
+
+            </div>
+        </div>
+    </div>
+</div>

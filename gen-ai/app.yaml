@@ -1,0 +1,30 @@
+# runtime: python311
+# handlers:
+#   - url: /
+#     static_files: dist/gen-ai/index.html
+#     upload: dist/gen-ai/index.html
+#   - url: /
+#     static_dir: dist/gen-ai
+
+# bootstrap is not working by using below code
+runtime: python311
+service: na-rfp-usecase
+handlers:
+- url: /(.*\.(js|css|svg|png|jpg|gif|json))$
+  static_files: dist/gen-ai/\1
+  upload: dist/gen-ai/(.*\.(js|css|svg|png|jpg|gif|json))
+  mime_type: application/javascript
+
+- url: /(.*\.(html|htm))$
+  static_files: dist/gen-ai/\1
+  upload: dist/gen-ai/(.*\.(html|htm))
+  mime_type: text/html
+
+- url: /.*
+  static_files: dist/gen-ai/index.html
+  upload: dist/gen-ai/index.html
+  
+
+
+
+

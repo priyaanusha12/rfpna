@@ -1,0 +1,268 @@
+<div class="chat">
+    <header [ngClass]="{'toggleHeaderHeight': !navbarOpen}">
+        <div class="header">
+            <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center justify-content-between nav-bar w-95">
+                    <h2>RFP Response Generator for NA</h2>
+                    <div class="d-flex align-items-center">
+                        <!-- <button class="btn-green m-3" (click)="openUploadDialog()">Upload Files</button> -->
+                        <button class="btn-green m-3" data-toggle="modal" data-target="#uploadModal">Upload
+                            Files</button>
+
+
+                        <button class="btn-white-border" (click)="logout()">
+                            <img src="assets/images/logout.png" alt="Logout">Logout
+                        </button>
+                    </div>
+                </div>
+
+
+                <!-- <div class="w-5">
+                    <button class="navbar-toggle " (click)="toggleNavbar()">
+                        <i class="fa" [ngClass]="{'fa-chevron-down': navbarOpen, 'fa-chevron-up': !navbarOpen}"></i>
+                    </button> 
+                </div>-->
+            </div>
+
+            <!-- <div class="top-header" *ngIf="navbarOpen">
+                <div class="row m-0">
+                    <div class="col-4 py-0">
+                        <div class="d-flex align-items-center">
+                            <label>Select Model</label>
+                            <select #mySelect (change)="onSelectionChange(mySelect.value)">
+                                <!-- <option value="Search Model">Search Model</option> 
+                                <option value="RFP Model">RFP Model</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="d-flex align-items-center">
+                            <label>Length (2048)</label>
+                            <input #length class="w65" name="length" [(ngModel)]="lengthV" type="number" max="=2048"
+                                min="0">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="d-flex align-items-center">
+                            <label>Temperature (1)</label>
+                            <input #temp type="number" name="temp" [(ngModel)]="tempV" min="0" max="1" step="0.1">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="d-flex align-items-center">
+                            <label>Top K (40)</label>
+                            <input #topK type="number" name="topk" [(ngModel)]="topKV" min="0" max="40" step="1">
+                        </div>
+                    </div>
+                    <div class="col-2 pr-0">
+                        <div class="d-flex align-items-center">
+                            <label>Top P (1)</label>
+                            <input #topP type="number" name="topp" [(ngModel)]="topPV" min="0" max="1" step="0.01">
+                        </div>
+                    </div>
+                </div>
+            </div>  -->
+
+        </div>
+    </header>
+    <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
+    aria-hidden="true">
+   <div class="modal-dialog" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="uploadModalLabel">Upload File</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+
+           <!-- Alert Placeholder -->
+           <div *ngIf="snackbarVisible" class="alert" [ngClass]="snackbarClass" role="alert">
+               {{ snackbarMessage }}
+               <button type="button" class="close" (click)="hideSnackbar()" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+
+           <div class="modal-body">
+               <h1 class="modal-h1">Upload File</h1>
+               <div class="file-input-container">
+                   <input type="file" (change)="onFileChange($event)" />
+                   <span class="file-count">{{ selectedFile ? selectedFile.name : 'No file selected' }}</span>
+               </div>
+               <div *ngIf="selectedFile">
+                   <h4>Selected File:</h4>
+                   <div class="file-list-container">
+                       <ul>
+                           <li class="file-item">
+                               <span class="file-name">{{ selectedFile.name }}</span>
+                               <button class="remove-button" (click)="removeFile()">X</button>
+                           </li>
+                       </ul>
+                   </div>
+               </div>
+
+               <div class="upload-results">
+                   <!-- Failed Uploads Section -->
+                   <div *ngIf="failedUploads.length > 0" class="failed-uploads">
+                       <h4 class="failed">Failed Uploads:</h4>
+                       <div class="failed-files-list">
+                           <ul>
+                               <li *ngFor="let file of failedUploads">{{ file }}</li>
+                           </ul>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
+           <div class="modal-footer">
+            <div class="button-group">
+                <button class="btn btn-green" (click)="uploadFile()">Upload</button>
+                
+            </div>
+            <button class="btn btn-red" (click)="reset()">Reset</button>
+        </div>
+       </div>
+   </div>
+</div>
+
+
+
+
+    <!-- Search
+    <div class="search" *ngIf="modelSelected == 'Search Model'">
+        <div class="row m-0">
+            <div class="col-4 p-0">
+                <div class="section" [ngClass]="{'toggleChatHeight': !navbarOpen}">
+                    <div class="chat-container" #chatContainer [ngClass]="{'toggleChatHeight': !navbarOpen}">
+                        <div *ngFor="let message of messages; let i = index">
+                            <div [ngClass]="{ 'send': message.user == 'send', 'receive': message.user == 'receive' }">
+                                <div class="message">
+                                    <p class="title" *ngIf="message.user == 'send'">Human</p>
+                                    <p class="title" *ngIf="message.user == 'receive'">{{message.model}}</p>
+                                    <div class="content" *ngIf="isArray(message.text)">
+                                        <div class="innerArray" id="accordion"
+                                            *ngFor="let innerArray of message.text; let i = index">
+                                            <div class="card">
+                                                <div class="card-header" [id]="'heading' + i">
+                                                    <div class="btn btn-link p-0 d-flex align-items-center justify-content-between "
+                                                        data-toggle="collapse" [attr.data-target]="'#collapse' + i"
+                                                        aria-expanded="false" [attr.aria-controls]="'collapse' + i">
+                                                        <h3 class="mb-0">
+                                                            Reference Link {{i+1}}
+                                                        </h3>
+                                                        <!-- <i class="fa fa-chevron-down text-success text-right"></i> 
+                                                    </div>
+                                                </div>
+
+                                                <div id="collapse{{ i }}" class="collapse"
+                                                    aria-labelledby="'heading' + i" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <p>
+                                                            <label>Document Name</label>
+                                                            <i class="fa fa-chevron-right text-success"></i>
+                                                            <span>{{ innerArray[0].Document_Name }}</span>
+                                                        </p>
+                                                        <p>
+                                                            <label>Document Source</label>
+                                                            <i class="fa fa-chevron-right text-success"></i>
+                                                            <span>{{ innerArray[0].Document_Source }}</span>
+                                                        </p>
+                                                        <p>
+                                                            <label>Matching Score</label>
+                                                            <i class="fa fa-chevron-right text-success"></i>
+                                                            <span>{{ innerArray[0].Matching_Score }}</span>
+                                                        </p>
+                                                        <p>
+                                                            <label>Folder Path</label>
+                                                            <i class="fa fa-chevron-right text-success"></i>
+                                                            <span>{{ innerArray[0].folder_path }}</span>
+                                                        </p>
+                                                        <p>
+                                                            <label>Reference Link</label>
+                                                            <i class="fa fa-chevron-right text-success"></i>
+                                                            <span><a class="link"
+                                                                    (click)="openFile(innerArray[0].href_link)">{{
+                                                                    innerArray[0].href_link }}</a></span>
+                                                        </p>
+                                                        <p *ngIf="innerArray[1]">
+                                                            <label>Content</label>
+                                                            <i class="fa fa-chevron-right text-success"></i>
+                                                            <span>{{ innerArray[1] }}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="content" *ngIf="!(isArray(message.text))">{{message.text }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="loading-dots" *ngIf="spinner">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <div class="input-container w-100">
+                        <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()"
+                            placeholder="Type a message...">
+                        <div class="send">
+                            <button class="btn btn-success" (click)="sendMessage()">
+                                <img
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqBAMAAAA37dRoAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAwUExURUdwTP///////////////////////////////////////////////////////////0Q+7AIAAAAPdFJOUwCAQO+/22AgpRCQUHAwjxcxKp8AAADrSURBVCjPY2CgL2BLwCbK+DUdm+j//+1YRf+7YRX9H1aAIfoFKPyjAF30QwVQ+EsCuihDWfz//6hOAYkysPn/R3UK4/+PmyYwsPejOgXshpA32qkoTgGLAsHn/8hOYWqx/48ASE65dMoVLoziFE5tCWeoOFqo8Oosif+PESrT97wIBok6wUXYr0mEQt2yCGpm9blWuDs+S0Jc1hqP7DIFVF98BRFWCkh++xyxZu9jIG04ASl0cgsYmJpRLIeEJLc/wnK46ER7uOUIUT17hOUosWmlgCXmEZYjiTphSSUolsNEUS2HAm4FhgEGACl20QuN4geoAAAAAElFTkSuQmCC">
+                            </button>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+            <div class="col-8 pr-0">
+                <div class="preview" [ngClass]="{'togglePreviewHeight': !navbarOpen}">
+                    <div class="previewPlaceholder" *ngIf="!documentUrl">
+                        <p>Preview will be shown here</p>
+                    </div>
+                    <iframe *ngIf="documentUrl" [src]="documentUrl" width="100%"></iframe>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Other Models -->
+    <section class="section" *ngIf="modelSelected == 'RFP Model'">
+        <div class="chat-container" #chatContainer>
+            <div *ngFor="let message of messages">
+                <div [ngClass]="{ 'send': message.user == 'send', 'receive': message.user == 'receive' }">
+                    <div class="message">
+                        <p class="font-weight-bold" *ngIf="message.user == 'send'">Human</p>
+                        <p class="font-weight-bold" *ngIf="message.user == 'receive'">{{message.model}}</p>
+                        <span [innerHTML]="message.text"></span>
+                        <!-- <span>{{message.text}}</span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading-dots" *ngIf="spinner">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+    <footer *ngIf="modelSelected == 'RFP Model'">
+        <div class="input-container w-100">
+
+            <input type="text" [(ngModel)]="newMessage" (keyup.enter)="sendMessage()" placeholder="Type a message...">
+            <div class="send">
+                <button class="btn btn-success" (click)="sendMessage()">
+                    <img
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqBAMAAAA37dRoAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAwUExURUdwTP///////////////////////////////////////////////////////////0Q+7AIAAAAPdFJOUwCAQO+/22AgpRCQUHAwjxcxKp8AAADrSURBVCjPY2CgL2BLwCbK+DUdm+j//+1YRf+7YRX9H1aAIfoFKPyjAF30QwVQ+EsCuihDWfz//6hOAYkysPn/R3UK4/+PmyYwsPejOgXshpA32qkoTgGLAsHn/8hOYWqx/48ASE65dMoVLoziFE5tCWeoOFqo8Oosif+PESrT97wIBok6wUXYr0mEQt2yCGpm9blWuDs+S0Jc1hqP7DIFVF98BRFWCkh++xyxZu9jIG04ASl0cgsYmJpRLIeEJLc/wnK46ER7uOUIUT17hOUosWmlgCXmEZYjiTphSSUolsNEUS2HAm4FhgEGACl20QuN4geoAAAAAElFTkSuQmCC">
+                </button>
+
+            </div>
+        </div>
+    </footer>
+</div>
